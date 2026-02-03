@@ -71,7 +71,7 @@ OPENAI_API_KEY=your-api-key-here
 
 **Alternative: Configuration File**
 
-You can also set the API key in `/config/settings.py`, but be careful not to commit your actual key:
+You can also set the API key in `config/settings.py`, but be careful not to commit your actual key:
 
 ```python
 # config/settings.py
