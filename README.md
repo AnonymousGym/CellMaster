@@ -94,8 +94,8 @@ OPENAI_API_KEY = 'your-api-key-here'  # NEVER commit this with a real key!
 
 ### 4. Download Required Data Files
 
-Download the example datasets from:
-- [Google Drive Link](https://drive.google.com/file/d/1qT5qBbUYP3BvXNL7NY6zqEr-pp13zsdW/view?usp=sharing)
+Download the example dataset package from Google Drive:
+- [Example Datasets (retina.h5ad, pbmc3k.h5ad)](https://drive.google.com/file/d/1qT5qBbUYP3BvXNL7NY6zqEr-pp13zsdW/view?usp=sharing)
 
 Place the downloaded files in an `uploads/` directory in the project root.
 
@@ -165,7 +165,7 @@ CellMaster/
 │   └── settings.py             # API keys and settings
 ├── utils/                       # Utility functions
 │   ├── LLM.py                  # LLM interaction utilities
-│   ├── liver_process_toolkit.py # Processing utilities (general purpose)*
+│   ├── liver_process_toolkit.py # Processing utilities (general purpose)
 │   └── traj_util.py            # Trajectory analysis utilities
 ├── cli.py                       # Command-line interface
 ├── pipeline.py                  # Main pipeline orchestration
