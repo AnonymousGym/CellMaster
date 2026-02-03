@@ -54,31 +54,43 @@ pip install -r requirements.txt
 
 ### 3. Configure API Key
 
-**Recommended: Use Environment Variables**
+**Recommended: Use Environment Variables (Most Secure)**
 
-Set your API key as an environment variable (recommended for security):
+Set your API key as an environment variable:
 
 ```bash
 export OPENAI_API_KEY='your-api-key-here'
 ```
 
-Or create a `.env` file in the project root (don't forget to add `.env` to `.gitignore`):
+Or create a `.env` file in the project root (and add `.env` to `.gitignore`):
 
 ```bash
 # .env
 OPENAI_API_KEY=your-api-key-here
 ```
 
-**Alternative: Configuration File**
+Then load it in Python:
 
-You can also set the API key in `config/settings.py`, but be careful not to commit your actual key:
+```python
+import os
+from dotenv import load_dotenv  # pip install python-dotenv
+
+load_dotenv()  # Load environment variables from .env file
+api_key = os.environ.get('OPENAI_API_KEY')
+```
+
+**Alternative: Configuration File (Not Recommended for Production)**
+
+> ⚠️ **Security Warning**: The method below is **NOT recommended** as it can lead to accidentally committing API keys. Use environment variables instead.
+
+If you must use the configuration file for local development only:
 
 ```python
 # config/settings.py
-OPENAI_API_KEY = 'your-api-key-here'
+OPENAI_API_KEY = 'your-api-key-here'  # NEVER commit this with a real key!
 ```
 
-> ⚠️ **Security Warning**: Never commit API keys to version control. Always use environment variables or a `.env` file (added to `.gitignore`) for sensitive credentials.
+**Important**: If you use the configuration file method, ensure you never commit your actual API key to version control.
 
 ### 4. Download Required Data Files
 
@@ -153,7 +165,7 @@ CellMaster/
 │   └── settings.py             # API keys and settings
 ├── utils/                       # Utility functions
 │   ├── LLM.py                  # LLM interaction utilities
-│   ├── liver_process_toolkit.py # Processing utilities
+│   ├── liver_process_toolkit.py # Processing utilities (general purpose)*
 │   └── traj_util.py            # Trajectory analysis utilities
 ├── cli.py                       # Command-line interface
 ├── pipeline.py                  # Main pipeline orchestration
@@ -162,6 +174,8 @@ CellMaster/
 ├── dependencies.yaml           # Additional dependencies
 └── README.md                   # This file
 ```
+
+> **Note**: Despite some "liver"-prefixed naming in the codebase (historical naming), CellMaster works with **any tissue type** including retina, PBMC, and other single-cell datasets.
 
 ## 🔬 How It Works
 
