@@ -54,12 +54,31 @@ pip install -r requirements.txt
 
 ### 3. Configure API Key
 
-Replace the `OPENAI_API_KEY` in `/config/settings.py` with your own API key:
+**Recommended: Use Environment Variables**
+
+Set your API key as an environment variable (recommended for security):
+
+```bash
+export OPENAI_API_KEY='your-api-key-here'
+```
+
+Or create a `.env` file in the project root (don't forget to add `.env` to `.gitignore`):
+
+```bash
+# .env
+OPENAI_API_KEY=your-api-key-here
+```
+
+**Alternative: Configuration File**
+
+You can also set the API key in `/config/settings.py`, but be careful not to commit your actual key:
 
 ```python
 # config/settings.py
 OPENAI_API_KEY = 'your-api-key-here'
 ```
+
+> ⚠️ **Security Warning**: Never commit API keys to version control. Always use environment variables or a `.env` file (added to `.gitignore`) for sensitive credentials.
 
 ### 4. Download Required Data Files
 
@@ -75,9 +94,13 @@ Place the downloaded files in an `uploads/` directory in the project root.
 ```python
 from cli import run_cell_annotation
 import scanpy as sc
+import os
 
 # Load your scRNA-seq data
 adata = sc.read_h5ad("path/to/your/data.h5ad")
+
+# Get API key from environment variable (recommended)
+api_key = os.environ.get('OPENAI_API_KEY')
 
 # Define your research hypothesis
 hypothesis = """
@@ -91,7 +114,7 @@ annotated_adata = run_cell_annotation(
     input_adata=adata,
     initial_hypothesis=hypothesis,
     output_column="cell_type_annotation",
-    API_key="your-api-key-here",
+    API_key=api_key,
     model_name="gpt-4o"
 )
 
@@ -106,7 +129,7 @@ annotated_adata = run_cell_annotation(
     input_adata=adata,
     initial_hypothesis=hypothesis,
     output_column="cell_type_annotation",
-    API_key="your-api-key-here",
+    API_key=os.environ.get('OPENAI_API_KEY'),  # Use environment variable
     model_name="gpt-4o",
     model_provider="openai",
     original_grouping="leiden",  # clustering column name
@@ -192,6 +215,7 @@ See `testing.ipynb` for a complete example. Here's a snippet:
 
 ```python
 import scanpy as sc
+import os
 from cli import run_cell_annotation
 
 # Load PBMC data
@@ -205,12 +229,12 @@ Project Description: This dataset contains PBMC cell types including T cells, B 
 Monocytes, NK cells, and their subgroups like CD4 T and CD8 T. You must include these cell types.
 """
 
-# Run annotation
+# Run annotation with environment variable for API key
 annotated_adata = run_cell_annotation(
     input_adata=adata,
     initial_hypothesis=pbmc_hypothesis,
     output_column="cellmaster_annotation",
-    API_key=OPENAI_API_KEY,
+    API_key=os.environ.get('OPENAI_API_KEY'),
     model_name="gpt-4o"
 )
 
