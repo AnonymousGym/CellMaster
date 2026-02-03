@@ -12,3 +12,4 @@ replace the OPENAI_API_KEY in /config/settings.py with your own <be>
 you should download the files in:
 https://drive.google.com/file/d/1qT5qBbUYP3BvXNL7NY6zqEr-pp13zsdW/view?usp=sharing
 
+https://github.com/AnonymousGym/CellMaster-UI
